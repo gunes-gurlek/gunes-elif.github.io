@@ -5,100 +5,186 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sana Bir Mesajım Var ❤️</title>
   <style>
-    body {
-      background-color: #ffe6e8;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      overflow: hidden;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     .container {
       text-align: center;
-      padding: 20px;
+      position: relative;
+      width: 100%;
+      max-width: 450px;
     }
 
-    /* Zarf Tasarımı */
-    .envelope {
-      width: 280px;
-      height: 180px;
-      background-color: #ff4d6d;
-      position: relative;
-      border-radius: 10px;
+    /* --- Zarf Tasarımı --- */
+    .envelope-wrapper {
       cursor: pointer;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      perspective: 1000px;
+      margin: 0 auto;
       transition: transform 0.3s ease;
+    }
+
+    .envelope-wrapper:hover {
+      transform: scale(1.04);
+    }
+
+    .envelope {
+      position: relative;
+      width: 310px;
+      height: 210px;
+      background: #e63946;
+      margin: 0 auto;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto;
     }
 
-    .envelope:hover {
-      transform: scale(1.05);
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-left: 155px solid transparent;
+      border-right: 155px solid transparent;
+      border-top: 115px solid #d62828;
+      transform-origin: top;
+      transition: transform 0.5s ease;
     }
 
     .envelope-text {
       color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      pointer-events: none;
+      font-weight: 600;
+      font-size: 1.15rem;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.25);
     }
 
-    /* Mektup Kartı (Başlangıçta gizli) */
+    .heart-seal {
+      font-size: 2.8rem;
+      margin-bottom: 6px;
+      animation: pulse 1.5s infinite;
+    }
+
+    /* --- Mektup Kağıdı --- */
     .letter {
       display: none;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      max-width: 400px;
-      animation: fadeIn 0.8s ease-in-out forwards;
+      background: #fffdf9;
+      background-image: radial-gradient(#e5e5f7 0.5px, transparent 0.5px);
+      background-size: 10px 10px;
+      padding: 30px 22px;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+      border: 1px solid #eae3d2;
+      animation: openUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      text-align: center;
     }
 
     .letter h2 {
-      color: #ff4d6d;
+      font-family: 'Caveat', cursive;
+      font-size: 2.4rem;
+      color: #e63946;
       margin-bottom: 15px;
     }
 
-    .letter p {
+    /* --- Polaroid Fotoğraf Çerçevesi --- */
+    .photo-frame {
+      background: white;
+      padding: 12px 12px 28px 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      transform: rotate(-3deg);
+      margin: 15px auto 22px auto;
+      max-width: 270px;
+      border: 1px solid #eaeaea;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-frame:hover {
+      transform: rotate(0deg) scale(1.03);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .photo-caption {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
       color: #555;
-      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    .letter p {
+      color: #4a4a4a;
+      font-size: 1.05rem;
       line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .handwritten {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: #d62828;
+      font-weight: 700;
+      margin-top: 15px;
     }
 
     .heart-btn {
-      background-color: #ff4d6d;
+      background: linear-gradient(45deg, #e63946, #ff4d6d);
       color: white;
       border: none;
-      padding: 10px 25px;
-      font-size: 1rem;
-      border-radius: 20px;
+      padding: 12px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 25px;
       cursor: pointer;
-      margin-top: 15px;
-      transition: background 0.3s;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+      transition: all 0.3s ease;
     }
 
     .heart-btn:hover {
-      background-color: #c9184a;
+      transform: translateY(-2deg);
+      box-shadow: 0 8px 20px rgba(230, 57, 70, 0.6);
     }
 
-    /* YouTube iframe'ini ekranda tamamen gizliyoruz */
-    #ytPlayer {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
+    /* Animasyonlar */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes openUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
   </style>
 </head>
@@ -106,52 +192,55 @@
 
   <div class="container">
     <!-- Tıklanacak Zarf -->
-    <div class="envelope" id="envelope" onclick="openLetter()">
-      <div class="envelope-text">✉️ Sana bir mektup var!<br><small>(Tıkla ve Aç)</small></div>
+    <div class="envelope-wrapper" id="envelopeWrapper" onclick="openLetter()">
+      <div class="envelope">
+        <div class="envelope-text">
+          <div class="heart-seal">💌</div>
+          Sana Bir Mektup Var!<br>
+          <small style="font-size: 0.82rem; opacity: 0.9;">(Açmak için tıkla)</small>
+        </div>
+      </div>
     </div>
 
     <!-- Mektup İçeriği -->
     <div class="letter" id="letter">
       <h2>Seni Çok Seviyorum ❤️</h2>
+      
+      <!-- Polaroid Fotoğraf Çerçevesi -->
+      <div class="photo-frame">
+        <img src="foto.jpg" alt="Bizim Fotoğrafımız" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=500&auto=format&fit=crop'">
+        <div class="photo-caption">Biz ❤️</div>
+      </div>
+
       <p>Dün için çok özür dilerim sevgili şeeğim...</p>
-      <p><b>Barışalım mı? 🥺✨</b></p>
-      <button class="heart-btn" onclick="alert('EVET dedin sayıyorum! ❤️')">Evet ❤️</button>
+      <p class="handwritten">Barışalım mı? 🥺✨</p>
+      
+      <button class="heart-btn" onclick="celebrate()">Evet, Barışalım! ❤️</button>
     </div>
   </div>
 
-  <!-- Gizli YouTube Player Container -->
-  <div id="ytPlayer"></div>
+  <!-- Arka Plan Müzik Player (MP3) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="muzik.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- YouTube IFrame API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    var player;
-    // Buraya istediğin YouTube videosunun ID'sini yaz:
-    var youtubeVideoId = '6v25G3Eom0E'; 
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('ytPlayer', {
-        height: '0',
-        width: '0',
-        videoId: youtubeVideoId,
-        playerVars: {
-          'autoplay': 0,
-          'controls': 0,
-          'loop': 1,
-          'playlist': youtubeVideoId
-        }
-      });
-    }
-
     function openLetter() {
       // Zarfı gizle, mektubu göster
-      document.getElementById('envelope').style.display = 'none';
+      document.getElementById('envelopeWrapper').style.display = 'none';
       document.getElementById('letter').style.display = 'block';
 
-      // YouTube müziğini başlat
-      if (player && player.playVideo) {
-        player.playVideo();
+      // MP3 Sesini başlat (Kullanıcı tıklamasıyla başlatıldığı için sorunsuz çalışır)
+      var music = document.getElementById('bgMusic');
+      if (music) {
+        music.play().catch(function(error) {
+          console.log("Müzik oynatma hatası:", error);
+        });
       }
+    }
+
+    function celebrate() {
+      alert('Seni çok seviyorum! ❤️ Evete tıkladığın için teşekkür ederim!');
     }
   </script>
 
